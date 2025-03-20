@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: pink;
+            margin: 0;
+        }
+        .calculator {
+            width: 350px;
+            background: #4a154b;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #display {
+            width: 100%;
+            height: 80px;
+            font-size: 2em;
+            text-align: justify;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: none;
+            background: #f8c8dc;
+            border-radius: 10px;
+            color: black;
+            word-wrap: break-word;
+            overflow: hidden;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+        button {
+            width: 80px;
+            height: 60px;
+            font-size: 1.4em;
+            border: none;
+            cursor: pointer;
+            background: #6a1b6a;
+            color: white;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+        button:hover {
+            background: #871f87;
+        }
+        .equal {
+            grid-column: span 2;
+            background: #ff6699;
+        }
+        .equal:hover {
+            background: #ff4d88;
+        }
+        .clear {
+            background: red;
+        }
+        .clear:hover {
+            background: darkred;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <input type="text" id="display" disabled>
+        <div class="buttons">
+            <button class="clear" onclick="clearDisplay()">C</button>
+            <button onclick="deleteLast()">✖</button>
+            <button onclick="appendValue('/')">/</button>
+            <button onclick="appendValue('*')">*</button>
+            <button onclick="appendValue('7')">7</button>
+            <button onclick="appendValue('8')">8</button>
+            <button onclick="appendValue('9')">9</button>
+            <button onclick="appendValue('-')">-</button>
+            <button onclick="appendValue('4')">4</button>
+            <button onclick="appendValue('5')">5</button>
+            <button onclick="appendValue('6')">6</button>
+            <button onclick="appendValue('+')">+</button>
+            <button onclick="appendValue('1')">1</button>
+            <button onclick="appendValue('2')">2</button>
+            <button onclick="appendValue('3')">3</button>
+            <button onclick="calculateResult()" class="equal">=</button>
+            <button onclick="appendValue('0')">0</button>
+            <button onclick="appendValue('.')">.</button>
+            <button onclick="calculatePercentage()">%</button>
+        </div>
+    </div>
+
+    <script>
+        function appendValue(value) {
+            document.getElementById("display").value += value;
+        }
+        function clearDisplay() {
+            document.getElementById("display").value = "";
+        }
+        function deleteLast() {
+            let display = document.getElementById("display");
+            display.value = display.value.slice(0, -1);
+        }
+        function calculateResult() {
+            try {
+                document.getElementById("display").value = eval(document.getElementById("display").value);
+            } catch (error) {
+                alert("Invalid input");
+            }
+        }
+        function calculatePercentage() {
+            try {
+                document.getElementById("display").value = eval(document.getElementById("display").value) / 100;
+            } catch (error) {
+                alert("Invalid input");
+            }
+        }
+    </script>
+</body>
+</html>
